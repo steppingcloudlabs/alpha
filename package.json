@@ -1,0 +1,22 @@
+{
+  "name": "the-alpha",
+  "version": "1.0.0",
+  "description": "This service have the power to delete and provisionig of Tenant in the SteppingCloud's Product.  ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/steppingcloudlabs/alpha.git"
+  },
+  "keywords": [
+    "alpha"
+  ],
+  "author": "Prakritidev Verma (github.com/prakritidev)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/steppingcloudlabs/alpha/issues"
+  },
+  "homepage": "https://github.com/steppingcloudlabs/alpha#readme"
+}
