@@ -1,28 +1,22 @@
 module.exports = {
-    // server config
-    port: 3000,
-    name: "alpha-backend",
-    env: process.env.NODE_ENV,
-    base_uri: process.env.BASE_URI,
-    host: process.env.HOST,
+  // server config
+  port: 3000,
+  name: 'alpha',
+  env: process.env.NODE_ENV,
+  base_uri: process.env.BASE_URI,
+  host: process.env.HOST,
 
-    // mongodb config
-    isMongoUri: true,
-    mongo_host: process.env.MONGO_HOST,
-    mogo_port: process.env.MONGO_PORT,
-    mongo_dbname: process.env.MONGO_DBNAME,
-    mongo_uri: "mongodb+srv://developer:zn4QRR3rIa0SqJ6L@dev-n6nb4.mongodb.net/researchkernel?retryWrites=true&w=majority",
+  // mongodb config
+  isMongoUri: true,
+  mongo_host: process.env.MONGO_HOST,
+  mogo_port: process.env.MONGO_PORT,
+  mongo_dbname: process.env.MONGO_DBNAME,
+  mongo_uri: process.env.MONGO_URI,
 
-    // jwt config
-    jwt_secret_key: process.env.JWT_SECRET_KEY,
-    salt_work_factor: process.env.SALT_WORK_FACTOR,
+  // aws-sdk config
+  aws_access_key_id: process.env.AWS_ACCESS_KEY_ID,
+  aws_secret_access_key: process.env.AWS_SECRET_ACCESS_KEY,
+  aws_region: process.env.AWS_REGION,
+  aws_email_user: process.env.AWS_EMAIL_USER,
 
-    // aws-sdk config
-    aws_access_key_id: process.env.AWS_ACCESS_KEY_ID,
-    aws_secret_access_key: process.env.AWS_SECRET_ACCESS_KEY,
-    aws_region: process.env.AWS_REGION,
-    aws_email_user: process.env.AWS_EMAIL_USER,
-
-    // email config
-    password_reset_subject: process.env.PASSWORD_RESET_SUBJECT
 };
