@@ -1,5 +1,6 @@
 const dotenv = require('dotenv');
 
+dotenv.config();
 // Body Parser for req/res
 const bodyParser = require('body-parser');
 
@@ -21,15 +22,13 @@ const logger = require('./logger')();
 // express init
 const app = express();
 
-// dotenv init
-dotenv.config();
 // CORS
 app.use(cors());
 
 // Body Parser config
 app.use(bodyParser.urlencoded({
   parameterLimit: 10,
-  limit: '1mb',
+  limit: '200mb',
   extended: false,
 }));
 
@@ -47,6 +46,7 @@ const mongo = require('./mongo');
 /**
  * Authentication and Authorization REST APIs
  */
+console.log(config.mongo_host);
 
 app.get('/', (req, res, next) => {
   res.send({
@@ -58,10 +58,7 @@ app.get('/', (req, res, next) => {
 /**
  * Server
  */
-app.use(
-  '/api/v1',
-  require('./routes/routes.index')({ db: mongo, logger }),
-);
+
 
 app.listen(config.port, () => {
   console.log(`Server listening on port: ${config.port}`);

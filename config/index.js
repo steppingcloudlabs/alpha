@@ -7,7 +7,7 @@ module.exports = {
   host: process.env.HOST,
 
   // mongodb config
-  isMongoUri: true,
+  isMongoUri: false,
   mongo_host: process.env.MONGO_HOST,
   mogo_port: process.env.MONGO_PORT,
   mongo_dbname: process.env.MONGO_DBNAME,
