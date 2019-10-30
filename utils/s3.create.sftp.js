@@ -1,38 +1,35 @@
 /* eslint-disable max-len */
 const S3 = require('../aws');
+const logger = require('../logger');
 
 module.exports = () => {
   /**
-     *
+     * This function will create a folder in S3 bucket with the name of company and the service for which SFTP is required
      * @param {String} companyName
      * @param {String} bucketName
      * @param {String} serviceName
      */
-  const createCompanyFolderInSftp = (companyName, bucketName) => new Promise(async (resolve, reject) => {
+  const createCompanyFolderforSubscribedServicesInSftp = (companyName, bucketName, serviceName) => new Promise(async (resolve, reject) => {
     try {
-      resolve(companyName, bucketName);
-      /**
-             * Needs to be done
-             *  1. Create folder name of company in the bucket
-             */
+      const param = {
+        Bucket: bucketName,
+        Key: `${companyName}/${serviceName}/`,
+        Body: 'body does not matter',
+      };
+      S3.putObject(param, (err, data) => {
+        if (err) {
+          logger.error(`Error creating the path on S3 for Company: ${companyName}, for service ${serviceName} with error: ${err}`);
+        } else {
+          logger.info(`Successfully created the path on S3 for Company: ${companyName}, for service ${serviceName}`);
+          resolve(data);
+        }
+      });
     } catch (error) {
-      reject(error);
-    }
-  });
-  const createServiceStructureForCompanyFolderInSftp = (companyName, bucketName, serviceName) => new Promise(async (resolve, reject) => {
-    try {
-      resolve(companyName, bucketName, serviceName);
-
-      /**
-             * Needs to be done
-             *  1. Create service folder name of company in the company folder
-             */
-    } catch (error) {
+      logger.error(`Caught error: ${error} for createCompanyFolderforSubscribedServicesInSftp`);
       reject(error);
     }
   });
   return {
-    createCompanyFolderInSftp,
-    createServiceStructureForCompanyFolderInSftp,
+    createCompanyFolderforSubscribedServicesInSftp,
   };
 };
