@@ -14,8 +14,9 @@ const cors = require('cors');
 
 // Helmet for request security.
 const helmet = require('helmet');
-
 const config = require('./config');
+
+
 // Bunyan logger
 const logger = require('./logger')();
 
@@ -44,9 +45,8 @@ app.use(helmet.frameguard());
 // Configure databases here.
 const mongo = require('./mongo');
 /**
- * Authentication and Authorization REST APIs
+ * Aplha  REST APIs
  */
-console.log(config.mongo_host);
 
 app.get('/', (req, res, next) => {
   res.send({
@@ -54,12 +54,19 @@ app.get('/', (req, res, next) => {
     message: 'Faad chal rha hai.',
   });
 });
-
+app.get('/hi', (req, res, next) => {
+  res.send({
+    code: 200,
+    message: 'mushi mushi',
+  });
+});
+app.use(
+  '/api/v1',
+  require('./routes/routes')({ logger, db: mongo }),
+);
 /**
  * Server
  */
-
-
 app.listen(config.port, () => {
   console.log(`Server listening on port: ${config.port}`);
 });

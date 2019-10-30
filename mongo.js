@@ -16,6 +16,7 @@ if (config.isMongoUri) {
     config.mongo_dbname
   }`;
 }
+
 mongo.connect(
   uri, {
     useCreateIndex: true,
