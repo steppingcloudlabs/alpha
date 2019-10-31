@@ -2,14 +2,20 @@ const express = require('express');
 
 const router = express.Router();
 
-const companyCreatorController = require('../controller/controller.company')();
+const companyCreatorController = require('../controller/controller.addTenant')();
 
 module.exports = ({ logger, db }) => {
   router
-    .route('/addCompany')
-    .post((req, res, next) => companyCreatorController.addCompany(req, res, next, { logger, db }));
+    .route('/createTenantDatabase')
+    .post((req, res, next) => companyCreatorController
+      .createTenantDatabase(req, res, next, { logger, db }));
   router
-    .route('/hi')
-    .get((req, res, next) => companyCreatorController.hi(req, res, next, { logger }));
+    .route('/createTenantSftp')
+    .post((req, res, next) => companyCreatorController
+      .createTenantSftp(req, res, next, { logger, db }));
+  router
+    .route('/deleteTenantSftp')
+    .post((req, res, next) => companyCreatorController
+      .createTenantSftp(req, res, next, { logger, db }));
   return router;
 };
