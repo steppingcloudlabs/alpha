@@ -1,7 +1,6 @@
 const express = require('express');
 
 const router = express.Router();
-
 const companyCreatorController = require('../controller/controller.addTenant')();
 
 module.exports = ({ logger, db }) => {
@@ -10,7 +9,15 @@ module.exports = ({ logger, db }) => {
     .post((req, res, next) => companyCreatorController
       .createTenantDatabase(req, res, next, { logger, db }));
   router
+    .route('/deleteTenantDatabase')
+    .post((req, res, next) => companyCreatorController
+      .createTenantSftp(req, res, next, { logger, db }));
+  router
     .route('/createTenantSftp')
+    .post((req, res, next) => companyCreatorController
+      .createTenantSftp(req, res, next, { logger, db }));
+  router
+    .route('/deleteTenantSftp')
     .post((req, res, next) => companyCreatorController
       .createTenantSftp(req, res, next, { logger, db }));
   router
