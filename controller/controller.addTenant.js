@@ -12,8 +12,12 @@ module.exports = () => {
       const response = await addTenantService.createTenantDatabase(payload, logger);
       res.status(200).send({
         status: '200 OK',
-        result: response,
-        db,
+        result: {
+          username: response[0],
+          password: response[1],
+          CompanyName: response[2],
+        },
+
       });
     } catch (error) {
       next(error);

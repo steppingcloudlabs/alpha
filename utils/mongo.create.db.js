@@ -1,8 +1,10 @@
-const mongodb = require('mongodb');
-const generator = require('generate-password');
-const UsernameGenerator = require('username-generator');
-const logger = require('../logger');
+
+
 module.exports = () => {
+  const mongodb = require('mongodb');
+  const generator = require('generate-password');
+  const UsernameGenerator = require('username-generator');
+
   const userPassword = generator.generate({
     length: 12,
     numbers: true,
@@ -17,7 +19,7 @@ module.exports = () => {
                    * @param {String} dbport
                    */
   // This function will create mongodb database for a database name which will be the name of
-  const createmongodbforcompany = (dbname, dbhost, dbport) => new Promise(async (resolve, reject) => {
+  const createmongodbforcompany = (dbname, dbhost, dbport, logger) => new Promise(async (resolve, reject) => {
     try {
       const client = new mongodb.MongoClient(`mongodb://${dbhost}:${dbport}`, { useUnifiedTopology: true });
       client.connect((err) => {
@@ -46,16 +48,15 @@ module.exports = () => {
 
         }],
       },
-        { privileges: [{ resources: { db: dbname } }] },
-        (err, result) => {
+      { privileges: [{ resources: { db: dbname } }] },
+      (err) => {
 
-          if (err) {
-            logger.error('Error: could not add new user');
-          }
-          else {
-            resolve(userName, userPassword)
-          }
-        })
+        if (err) {
+          logger.error('Error: could not add new user');
+        }
+      });
+      resolve([userName, userPassword, dbname]);
+      logger.info(`Successfully created the User : ${userName}, and Password : ${userPassword} for database access:${dbname}`);
     }
 
 
@@ -64,10 +65,10 @@ module.exports = () => {
       reject(error);
     }
 
-  })
+  });
   return {
     createmongodbforcompany,
 
-  }
+  };
 
-
+};

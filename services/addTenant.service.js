@@ -1,13 +1,22 @@
 /* eslint-disable no-async-promise-executor */
 const sftpUtil = require('../utils/s3.sftp')();
+const mongoUtil = require('../utils/mongo.create.db')();
 const aws = require('../aws');
+
 
 const { S3 } = aws;
 
 module.exports = () => {
-  const createTenantDatabase = (payload) => new Promise(async (resolve, reject) => {
+  const createTenantDatabase = (payload, logger) => new Promise(async (resolve, reject) => {
     try {
-      resolve(payload);
+      const { dbname, dbhost, dbport } = payload;
+      const response = await mongoUtil.createmongodbforcompany(
+        dbname,
+        dbhost,
+        dbport,
+        logger,
+      );
+      resolve(response);
     } catch (error) {
       reject(error);
     }
