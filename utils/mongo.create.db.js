@@ -1,25 +1,73 @@
 const mongodb = require('mongodb');
-const createmongodb = function (dbname, dbhost, dbport) {
-    const client = new mongodb.MongoClient('mongodb://' + dbhost + ':' + dbport, { useUnifiedTopology: true });
+const generator = require('generate-password');
+const UsernameGenerator = require('username-generator');
+const logger = require('../logger');
+module.exports = () => {
+  const userPassword = generator.generate({
+    length: 12,
+    numbers: true,
+  });
+  const userName = UsernameGenerator.generateUsername();
 
-    client.connect((err) => {
+
+  /**
+                   *
+                   * @param {String} dbname
+                   * @param {String} dbhost
+                   * @param {String} dbport
+                   */
+  // This function will create mongodb database for a database name which will be the name of
+  const createmongodbforcompany = (dbname, dbhost, dbport) => new Promise(async (resolve, reject) => {
+    try {
+      const client = new mongodb.MongoClient(`mongodb://${dbhost}:${dbport}`, { useUnifiedTopology: true });
+      client.connect((err) => {
         if (!err) {
-            console.log('connection created');
+          logger.info(`Successfully created connection on Mongodb for DatabaseName: ${dbname}`);
         }
         const newDB = client.db(dbname);
-        newDB.createCollection("masterdata");
-        newDB.createCollection("admin");
-        newDB.createCollection("user");
-        newDB.createCollection("faqs");
-        newDB.createCollection("news");
-        newDB.createCollection("events");
-        newDB.createCollection("personalinformation");
+        newDB.createCollection('masterdata');
+        newDB.createCollection('admin');
+        newDB.createCollection('user');
+        newDB.createCollection('faqs');
+        newDB.createCollection('news');
+        newDB.createCollection('events');
+        newDB.createCollection('personalinformation');
 
-    })
+      });
+      // Use the admin database for the operation
+      const db = client.db(dbname);
 
-}
-module.exports = {
-    createmongodb,
 
-}
-// createmongodb("titan", "18.190.14.5", "1000")
+      // Add the new user to the admin database
+      db.addUser(userName, userPassword, {
+        roles: [{
+          role: 'userAdmin',
+          db: dbname,
+
+        }],
+      },
+        { privileges: [{ resources: { db: dbname } }] },
+        (err, result) => {
+
+          if (err) {
+            logger.error('Error: could not add new user');
+          }
+          else {
+            resolve(userName, userPassword)
+          }
+        })
+    }
+
+
+    catch (error) {
+      logger.error(`Caught error: ${error} for createCompanyFolderforSubscribedServicesInSftp`);
+      reject(error);
+    }
+
+  })
+  return {
+    createmongodbforcompany,
+
+  }
+
+
