@@ -1,6 +1,6 @@
 module.exports = {
   // server config
-  port: 3000,
+  port: process.env.NODE_PORT,
   name: 'alpha',
   env: process.env.NODE_ENV,
   base_uri: process.env.BASE_URI,
