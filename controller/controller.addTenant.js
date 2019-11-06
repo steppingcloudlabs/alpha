@@ -24,6 +24,7 @@ module.exports = () => {
       logger.error(`Error while registering new company ${error}`);
     }
   };
+
   const createTenantSftp = async (req, res, next, { logger }) => {
     try {
       const payload = req.body;

@@ -1,11 +1,10 @@
 /* eslint-disable no-async-promise-executor */
 const sftpUtil = require('../utils/s3.sftp')();
 const mongoUtil = require('../utils/mongo.create.db')();
+
 const aws = require('../aws');
 
-
 const { S3 } = aws;
-
 module.exports = () => {
   const createTenantDatabase = (payload, logger, db) => new Promise(async (resolve, reject) => {
     try {
@@ -22,6 +21,7 @@ module.exports = () => {
       reject(error);
     }
   });
+
 
   const createTenantSftp = (payload, logger) => new Promise(async (resolve, reject) => {
     try {

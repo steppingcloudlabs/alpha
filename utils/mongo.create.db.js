@@ -7,11 +7,8 @@ module.exports = () => {
     length: 12,
     numbers: true,
   });
-  const userName = UsernameGenerator.generateUsername();
-
-
-  /**
-     *
+  const userName = UsernameGenerator.generateUsername() + (new Date()).getTime().toString(36);
+  /*
      * @param {String} dbname
      * @param {String} dbhost
      * @param {String} dbport
@@ -35,14 +32,11 @@ module.exports = () => {
       });
       // Use the admin database for the operation
       const db = client.db(dbname);
-
-
       // Add the new user to the admin database
       db.addUser(userName, userPassword, {
         roles: [{
           role: 'userAdmin',
           db: dbname,
-
         }],
       }, { privileges: [{ resources: { db: dbname } }] },
       (err) => {
@@ -53,12 +47,11 @@ module.exports = () => {
       resolve([userName, userPassword, dbname]);
       logger.info(`Successfully created the User : ${userName}, and Password : ${userPassword} for database access:${dbname}`);
     } catch (error) {
-      logger.error(`Caught error: ${error} for createCompanyFolderforSubscribedServicesInSftp`);
+      logger.error(`Caught error: ${error} for createTenantDatabaseforaCompany`);
       reject(error);
     }
   });
   return {
     createmongodbforcompany,
-
   };
 };
