@@ -9,7 +9,7 @@ module.exports = () => {
   const createTenantDatabase = async (req, res, next, { logger, db }) => {
     try {
       const payload = req.body;
-      const response = await addTenantService.createTenantDatabase(payload, logger);
+      const response = await addTenantService.createTenantDatabase(payload, { logger, db });
       res.status(200).send({
         status: '200 OK',
         result: {

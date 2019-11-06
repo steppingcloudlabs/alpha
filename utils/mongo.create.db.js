@@ -1,5 +1,3 @@
-
-
 module.exports = () => {
   const mongodb = require('mongodb');
   const generator = require('generate-password');
@@ -13,11 +11,11 @@ module.exports = () => {
 
 
   /**
-                   *
-                   * @param {String} dbname
-                   * @param {String} dbhost
-                   * @param {String} dbport
-                   */
+     *
+     * @param {String} dbname
+     * @param {String} dbhost
+     * @param {String} dbport
+     */
   // This function will create mongodb database for a database name which will be the name of
   const createmongodbforcompany = (dbname, dbhost, dbport, logger) => new Promise(async (resolve, reject) => {
     try {
@@ -34,7 +32,6 @@ module.exports = () => {
         newDB.createCollection('news');
         newDB.createCollection('events');
         newDB.createCollection('personalinformation');
-
       });
       // Use the admin database for the operation
       const db = client.db(dbname);
@@ -47,28 +44,21 @@ module.exports = () => {
           db: dbname,
 
         }],
-      },
-      { privileges: [{ resources: { db: dbname } }] },
+      }, { privileges: [{ resources: { db: dbname } }] },
       (err) => {
-
         if (err) {
           logger.error('Error: could not add new user');
         }
       });
       resolve([userName, userPassword, dbname]);
       logger.info(`Successfully created the User : ${userName}, and Password : ${userPassword} for database access:${dbname}`);
-    }
-
-
-    catch (error) {
+    } catch (error) {
       logger.error(`Caught error: ${error} for createCompanyFolderforSubscribedServicesInSftp`);
       reject(error);
     }
-
   });
   return {
     createmongodbforcompany,
 
   };
-
 };

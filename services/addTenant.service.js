@@ -7,9 +7,10 @@ const aws = require('../aws');
 const { S3 } = aws;
 
 module.exports = () => {
-  const createTenantDatabase = (payload, logger) => new Promise(async (resolve, reject) => {
+  const createTenantDatabase = (payload, logger, db) => new Promise(async (resolve, reject) => {
     try {
       const { dbname, dbhost, dbport } = payload;
+
       const response = await mongoUtil.createmongodbforcompany(
         dbname,
         dbhost,
