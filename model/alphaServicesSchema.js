@@ -17,6 +17,14 @@ const alphaServiceSchema = new Schema({
     type: String,
     required: true,
   },
+  service_name: {
+    type: String,
+    required: true,
+  },
+  service_status: {
+    type: String,
+    required: true,
+  },
 
 });
 
