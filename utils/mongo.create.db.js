@@ -21,8 +21,9 @@ module.exports = () => {
         if (!err) {
           logger.info(`Successfully created connection on Mongodb for DatabaseName: ${dbname}`);
         }
-        const db = client.db(dbname);
-        db.createCollection('login');
+        const newDB = client.db(dbname);
+        newDB.createCollection('login');
+        newDB.createCollection('master');
       });
       // Use the admin database for the operation
       const db = client.db(dbname);
