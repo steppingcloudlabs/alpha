@@ -1,8 +1,8 @@
-module.exports = () => {
-  const mongodb = require('mongodb');
-  const generator = require('generate-password');
-  const UsernameGenerator = require('username-generator');
+const mongodb = require('mongodb');
+const generator = require('generate-password');
+const UsernameGenerator = require('username-generator');
 
+module.exports = () => {
   const userPassword = generator.generate({
     length: 12,
     numbers: true,

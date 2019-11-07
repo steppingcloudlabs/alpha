@@ -9,7 +9,7 @@ module.exports = () => {
   const createTenantDatabase = async (req, res, next, { logger, db }) => {
     try {
       const payload = req.body;
-      const response = await addTenantService.createTenantDatabase(payload, { logger, db });
+      const response = await addTenantService.createTenantDatabase(payload, logger, db);
       res.status(200).send({
         status: '200 OK',
         result: {
@@ -24,7 +24,7 @@ module.exports = () => {
       logger.error(`Error while registering new company ${error}`);
     }
   };
-  const assignRole = async (req, res, next, { logger, db }) => {
+  const assignRole = async (req, res, next, { logger }) => {
     try {
       const payload = req.body;
       const response = await addTenantService.assignRole(payload, logger);
