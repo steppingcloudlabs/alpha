@@ -9,10 +9,15 @@ module.exports = () => {
   });
   const userName = UsernameGenerator.generateUsername() + (new Date()).getTime().toString(36);
   /*
-                                                                                                          * @param {String} dbname
-                                                                                                       * @param {String} dbhost
-                                                                                                       * @param {String} dbport
-                                                                                                       */
+   * 
+   * @param {String} dbname 
+   * @param {String} dbhost 
+   * @param {String} dbport 
+   * @param {String} collectionName 
+   * @param {String} roleType 
+   * @param {String} logger 
+   * 
+   */
   // This function will create mongodb database for a database name which will be the name of
   const assignRoleOnDatabaseCollection = (dbname, dbhost, dbport, collectionName, roleType, logger) => new Promise(async (resolve, reject) => {
     try {
@@ -35,17 +40,17 @@ module.exports = () => {
             db: dbname,
           }],
         },
-        {
-          privileges: [
-            {
-              resources: { db: dbname },
-            }],
-        },
-        (err) => {
-          if (err) {
-            logger.error('Error: could not add new user');
-          }
-        });
+          {
+            privileges: [
+              {
+                resources: { db: dbname },
+              }],
+          },
+          (err) => {
+            if (err) {
+              logger.error('Error: could not add new user');
+            }
+          });
         resolve([userName, userPassword, dbname]);
         logger.info(`Successfully created the User : ${userName}, and Password : ${userPassword} for database access:${dbname}`);
       }
@@ -64,14 +69,14 @@ module.exports = () => {
             db: dbname,
           }],
         },
-        {
-          privileges: listPriviliges,
-        },
-        (err) => {
-          if (err) {
-            logger.error('Error: could not add new user');
-          }
-        });
+          {
+            privileges: listPriviliges,
+          },
+          (err) => {
+            if (err) {
+              logger.error('Error: could not add new user');
+            }
+          });
         resolve([userName, userPassword, dbname]);
         logger.info(`Successfully created the User : ${userName}, and Password : ${userPassword} for database access:${dbname}`);
       }
