@@ -9,10 +9,10 @@ module.exports = () => {
   });
   const userName = UsernameGenerator.generateUsername() + (new Date()).getTime().toString(36);
   /*
-                   * @param {String} dbname
-                   * @param {String} dbhost
-                   * @param {String} dbport
-                   */
+     * @param {String} dbname
+     * @param {String} dbhost
+     * @param {String} dbport
+     */
   // This function will create mongodb database for a database name which will be the name of
   const createmongodbforcompany = (dbname, dbhost, dbport, logger) => new Promise(async (resolve, reject) => {
     try {
@@ -32,11 +32,7 @@ module.exports = () => {
           role: 'userAdmin',
           db: dbname,
         }],
-      },
-      {
-        privileges: [
-          { resources: { db: dbname } }],
-      },
+      }, { privileges: [{ resources: { db: dbname } }] },
       (err) => {
         if (err) {
           logger.error('Error: could not add new user');
@@ -44,8 +40,7 @@ module.exports = () => {
       });
       resolve([userName, userPassword, dbname]);
       logger.info(`Successfully created the User : ${userName}, and Password : ${userPassword} for database access:${dbname}`);
-    }
-    catch (error) {
+    } catch (error) {
       logger.error(`Caught error: ${error} for createTenantDatabaseforaCompany`);
       reject(error);
     }
@@ -53,5 +48,4 @@ module.exports = () => {
   return {
     createmongodbforcompany,
   };
-
 };
