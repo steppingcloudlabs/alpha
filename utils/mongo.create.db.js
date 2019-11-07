@@ -21,14 +21,8 @@ module.exports = () => {
         if (!err) {
           logger.info(`Successfully created connection on Mongodb for DatabaseName: ${dbname}`);
         }
-        const newDB = client.db(dbname);
-        newDB.createCollection('masterdata');
-        newDB.createCollection('admin');
-        newDB.createCollection('user');
-        newDB.createCollection('faqs');
-        newDB.createCollection('news');
-        newDB.createCollection('events');
-        newDB.createCollection('personalinformation');
+        const db = client.db(dbname);
+        db.createCollection('login');
       });
       // Use the admin database for the operation
       const db = client.db(dbname);
@@ -39,7 +33,10 @@ module.exports = () => {
           db: dbname,
         }],
       },
-      { privileges: [{ resources: { db: dbname } }] },
+      {
+        privileges: [
+          { resources: { db: dbname } }],
+      },
       (err) => {
         if (err) {
           logger.error('Error: could not add new user');

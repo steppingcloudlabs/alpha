@@ -24,6 +24,24 @@ module.exports = () => {
       logger.error(`Error while registering new company ${error}`);
     }
   };
+  const assignRole = async (req, res, next, { logger, db }) => {
+    try {
+      const payload = req.body;
+      const response = await addTenantService.assignRole(payload, logger);
+      res.status(200).send({
+        status: '200 OK',
+        result: {
+          username: response[0],
+          password: response[1],
+          CompanyName: response[2],
+        },
+
+      });
+    } catch (error) {
+      next(error);
+      logger.error(`Error while registering new company ${error}`);
+    }
+  };
 
   const createTenantSftp = async (req, res, next, { logger }) => {
     try {
@@ -54,5 +72,7 @@ module.exports = () => {
   return {
     createTenantDatabase,
     createTenantSftp,
+    assignRole,
+
   };
 };
