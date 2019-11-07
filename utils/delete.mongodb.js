@@ -18,7 +18,7 @@ module.exports = () => {
       });
       // Use the admin database for the operation
       const db = client.db(dbname);
-      // Add the new user to the admin database
+      // Add the new user to the admin database, check existance of daatabase in further checks
       await db.dropDatabase(
         (err, result) => {
           if (err) {

@@ -14,6 +14,10 @@ module.exports = ({ logger, db }) => {
     .post((req, res, next) => companyCreatorController
       .createTenantDatabase(req, res, next, { logger, db }));
   router
+    .route('/assignrole')
+    .post((req, res, next) => companyCreatorController
+      .assignRole(req, res, next, { logger, db }));
+  router
     .route('/deleteTenantDatabase')
     .post((req, res, next) => companydeletorController
       .deleteTenantDatabase(req, res, next, { logger, db }));
