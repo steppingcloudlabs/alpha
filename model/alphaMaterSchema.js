@@ -6,7 +6,6 @@ require('mongoose-type-url');
 const alphaMasterSchema = new Schema({
   company_name: {
     type: String,
-    unique: true,
   },
   company_id: {
     type: String,
@@ -31,6 +30,10 @@ const alphaMasterSchema = new Schema({
   },
   company_admin_contact_email: {
     type: String,
+  },
+  db_name: {
+    type: String,
+    unique: true,
   },
   master_username: {
     type: String,

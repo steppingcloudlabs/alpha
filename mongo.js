@@ -28,7 +28,7 @@ mongo.connect(
     if (err) {
       throw new Error('Error connecting mongoose');
     } else {
-      logger.info('Connection successfull');
+      logger.info(`Connection successfull for ${env}`);
     }
   },
 );
