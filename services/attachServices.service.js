@@ -3,7 +3,7 @@ module.exports = () => {
     const attachTenantService = (payload, logger, db) => new Promise(async(resolve, reject) => {
         try {
             /**
-             * create collections to database and send the status with collection names
+             * create collections to database for a particular service and send the status with collection names
              */
             const client = new mongodb.MongoClient(`mongodb://${payload.dbhost}:${payload.dbport}`, { useUnifiedTopology: true });
             client.connect((err) => {
@@ -18,16 +18,14 @@ module.exports = () => {
                 db.createCollection(collectNames[i]);
             }
             resolve(collectNames);
-            logger.info(`Successfully attached service ${payload}`);
+            logger.info(`Successfully attached service ${payload.serviceName}`);
         } catch (error) {
             reject(error);
-            logger.error(`Error while attaching service ${payload}`);
+            logger.error(`Error while attaching service ${payload.serviceName}`);
         }
     });
 
     return {
         attachTenantService,
-        detachTenantService,
-        dropTenantService,
     };
 };
