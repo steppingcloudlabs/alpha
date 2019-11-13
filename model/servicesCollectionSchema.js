@@ -17,5 +17,5 @@ const servicesCollectionSchema = new Schema({
     },
 });
 
-const servicesCollectionSchema = mongoose.model('servicesCollectionSchema', servicesCollectionSchema);
-module.exports = servicesCollectionSchema;
+const servicesCollection = mongoose.model('servicesCollectionSchema', servicesCollectionSchema);
+module.exports = servicesCollection;
