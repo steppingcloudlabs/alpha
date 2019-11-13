@@ -2,19 +2,47 @@
 const sftpUtil = require('../utils/s3.sftp')();
 const mongoUtil = require('../utils/mongo.create.db')();
 const assignrole = require('../utils/assignRole.db.Collection')();
+const TenantCreatorModel = require('../model/alphaMaterSchema');
 const aws = require('../aws');
 const { S3 } = aws;
 module.exports = () => {
     const createTenantDatabase = (payload, logger, db) => new Promise(async(resolve, reject) => {
         try {
+            const {
 
-            const { dbname, dbhost, dbport } = payload;
+                db_host,
+                db_port,
+                company_name,
+                company_id,
+                client_id,
+                idp_url,
+                token_url,
+                private_key,
+                grant_type,
+                company_admin_contact_email
+            } = payload;
+
             const response = await mongoUtil.createmongodbforcompany(
-                dbname,
-                dbhost,
-                dbport,
+                company_id,
+                db_host,
+                db_port,
                 logger,
             );
+            master_username = response[0];
+            master_password = response[1];
+            const newTenant = new TenantCreatorModel({
+                company_name,
+                company_id,
+                client_id,
+                idp_url,
+                token_url,
+                private_key,
+                grant_type,
+                company_admin_contact_email,
+                master_username,
+                master_password,
+            });
+            await newTenant.save();
             resolve(response);
         } catch (error) {
             reject(error);

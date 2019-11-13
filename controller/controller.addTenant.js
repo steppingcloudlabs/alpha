@@ -2,7 +2,7 @@
 /* eslint-disable no-await-in-loop */
 const JsonValidator = require('jsonschema').Validator;
 const addTenantService = require('../services/addTenant.service')();
-
+const TenantCreatorModel = require('../model/alphaMaterSchema');
 const validatator = new JsonValidator();
 
 module.exports = () => {
@@ -29,34 +29,42 @@ module.exports = () => {
                     token_url: { type: 'string' },
                     private_key: { type: 'string', unique: 'yes' },
                     grant_type: { type: 'string' },
-                    company_admin_contact_email: { type: 'string' },
-                    master_username: { type: 'string' },
-                    master_password: { type: 'string' },
+                    company_admin_contact_email: { type: 'string' }
                 },
-                required: ['company_name', 'company_id', 'company_admin_contact_email', 'master_username', 'master_password'],
+                required: ['company_name', 'company_id', 'company_admin_contact_email'],
             };
             validatator.addSchema(addTenantSchema, '/addTenantSchema');
             const validatorResponse = (validatator.validate(payload, '/addTenantSchema')).valid;
             if (validatorResponse) {
-                // check if the payload data is unique or not.
-                //  code should go here
-                //
-                const response = await addTenantService.createTenantDatabase(payload, logger, db);
-                if (response) {
+                /**
+                 * CHECKING IF COMPANY ALREADY EXISTS
+                 */
+                const { company_id } = payload
+                const uniqueCompanyIdCheckResponse = await TenantCreatorModel.findOne({ company_id })
+                if (uniqueCompanyIdCheckResponse) {
                     res.status(200).send({
                         status: '200 OK',
-                        result: {
-                            username: response[0],
-                            password: response[1],
-                            database: response[2],
-                        },
+                        result: 'company ID is already in use',
                     });
                 } else {
-                    res.status(200).send({
-                        status: '400',
-                        result: 'Encountered some error, please try again',
-                    });
+                    const response = await addTenantService.createTenantDatabase(payload, logger, db);
+                    if (response) {
+                        res.status(200).send({
+                            status: '200 OK',
+                            result: {
+                                username: response[0],
+                                password: response[1],
+                                database: response[2],
+                            },
+                        });
+                    } else {
+                        res.status(200).send({
+                            status: '400',
+                            result: 'Encountered some error, please try again',
+                        });
+                    }
                 }
+
             } else {
                 res.status(200).send({
                     status: '400',
@@ -73,9 +81,6 @@ module.exports = () => {
                         private_key: 'private_key',
                         grant_type: 'grant_type',
                         company_admin_contact_email: 'company_admin_contact_email',
-                        master_username: 'master_username',
-                        master_password: 'master_password',
-
                     },
                 });
             }

@@ -23,8 +23,7 @@ module.exports = () => {
                     logger.info(`Successfully created connection on Mongodb for DatabaseName: ${dbname}`);
                 }
                 const newDB = client.db(dbname);
-                newDB.createCollection('login');
-                newDB.createCollection('master');
+                newDB.createCollection('masterdata');
             });
             // Use the admin database for the operation
             const db = client.db(dbname);
