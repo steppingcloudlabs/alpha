@@ -3,19 +3,14 @@
 const servicesService = require('../services/detachServices.service')();
 
 module.exports = () => {
-
     const detachTenantService = async(req, res, next, { logger }) => {
         try {
             const payload = req.body;
-            const responseList = [];
-            for (let i = 0; i < payload.length; i++) {
-                const response = await servicesService.detachTenantService(payload[i], logger);
-                responseList.push({ index: i, result: response });
-            }
-            if (responseList) {
+            const response = await servicesService.detachTenantService(payload, logger);
+            if (response) {
                 res.status(200).send({
                     status: '200 OK',
-                    result: responseList,
+                    result: response,
                 });
                 logger.info('Successfully created SFTP logical saperation');
             } else {

@@ -2,6 +2,11 @@ const mongodb = require('mongodb');
 const serviceAttacherModel = require('../model/alphaServicesSchema');
 const credsUtils = require('../utils/assignRole.db.Collection')();
 module.exports = () => {
+    /**
+     * @param {JSON} payload
+     * @param {Object} logger
+     * @param {Object} db
+     */
     const attachTenantService = (payload, logger, db) => new Promise(async(resolve, reject) => {
         try {
             /**
