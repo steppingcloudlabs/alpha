@@ -1,4 +1,4 @@
-const serviceCollectionsService = require('../services/serviceCollections.service')
+const serviceCollectionsService = require('../services/serviceCollections.service')()
 module.exports = () => {
     const addService = async(req, res, next, { logger, db }) => {
         try {

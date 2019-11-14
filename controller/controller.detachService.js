@@ -1,29 +1,8 @@
 /* eslint-disable no-plusplus */
 /* eslint-disable no-await-in-loop */
-const servicesService = require('../services/attachServices.service')();
+const servicesService = require('../services/detachServices.service')();
 
 module.exports = () => {
-    /**
-     * Add Company
-     */
-    const attachTenantService = async(req, res, next, { logger, db }) => {
-        try {
-            const payload = req.body;
-            const response = await servicesService.attachTenantService(payload, { logger, db });
-            res.status(200).send({
-                status: '200 OK',
-                result: {
-                    username: response[0],
-                    password: response[1],
-                    CompanyName: response[2],
-                },
-
-            });
-        } catch (error) {
-            next(error);
-            logger.error(`Error while registering new company ${error}`);
-        }
-    };
 
     const detachTenantService = async(req, res, next, { logger }) => {
         try {
@@ -80,7 +59,6 @@ module.exports = () => {
     };
 
     return {
-        attachTenantService,
         detachTenantService,
         dropTenantService,
     };

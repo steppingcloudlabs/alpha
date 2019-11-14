@@ -2,8 +2,9 @@ const express = require('express');
 
 const router = express.Router();
 const companyCreatorController = require('../controller/controller.addTenant')();
-const serviceCreatorController = require('../controller/controller.services')();
 const companydeletorController = require('../controller/controller.deleteTenant')();
+const attachServiceCollectionController = require('../controller/controller.attachService')();
+const detachServiceCollectionController = require('../controller/controller.detachService')();
 const serviceCollectionController = require('../controller/controller.serviceCollections')();
 
 module.exports = ({ logger, db }) => {
@@ -35,15 +36,15 @@ module.exports = ({ logger, db }) => {
      */
     router
         .route('/attachService')
-        .post((req, res, next) => serviceCreatorController
+        .post((req, res, next) => attachServiceCollectionController
             .attachTenantService(req, res, next, { logger, db }));
     router
         .route('/detachService')
-        .post((req, res, next) => serviceCreatorController
+        .post((req, res, next) => detachServiceCollectionController
             .detachTenantService(req, res, next, { logger, db }));
     router
         .route('/dropService')
-        .post((req, res, next) => serviceCreatorController
+        .post((req, res, next) => detachServiceCollectionController
             .dropTenantService(req, res, next, { logger, db }));
 
     /**

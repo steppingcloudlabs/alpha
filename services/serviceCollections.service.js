@@ -13,8 +13,6 @@ module.exports = () => {
 
     return {
         addService,
-        deleteService,
-        modifyService
     }
 
 }
