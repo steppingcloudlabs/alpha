@@ -3,7 +3,9 @@
 
 
 # Functionality of ALPHA
-1. /createTenantDatabase
-   1. /createsftp
-   2. /createdatabase
-   3. /createcollections
+1. createTenantDatabase [DONE]
+2. createsftp [DONE]
+3. createdatabase [DONE]
+4. createcollections [DONE]
+5. createUser [DONE]
+6. createService [DONE]
