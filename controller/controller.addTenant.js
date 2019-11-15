@@ -19,9 +19,9 @@ module.exports = () => {
                 id: '/addTenantSchema',
                 type: 'object',
                 properties: {
-                    dbname: { type: 'string' },
-                    dbhost: { type: 'string' },
-                    dbport: { type: 'string' },
+                    db_name: { type: 'string' },
+                    db_host: { type: 'string' },
+                    db_port: { type: 'string' },
                     company_name: { type: 'string' },
                     company_id: { type: 'string', unique: 'yes' },
                     client_id: { type: 'string', unique: 'yes' },
