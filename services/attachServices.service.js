@@ -1,5 +1,5 @@
 const mongodb = require('mongodb');
-const serviceAttacherModel = require('../model/alphaServicesSchema');
+const serviceAttacherModel = require('../model/alphaServicesGods');
 const credsUtils = require('../utils/assignRole.db.Collection')();
 module.exports = () => {
     /**

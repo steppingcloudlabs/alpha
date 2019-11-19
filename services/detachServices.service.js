@@ -1,5 +1,5 @@
 const mongodb = require('mongodb');
-const servicesSchema = require("../model/alphaServicesSchema")
+const servicesSchema = require("../model/alphaServicesGods")
 
 module.exports = () => {
     const detachTenantService = (payload, logger, db) => new Promise(async(resolve, reject) => {
