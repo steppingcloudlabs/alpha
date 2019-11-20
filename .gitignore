@@ -61,3 +61,4 @@ typings/
 .next
 .eslintrc.json
 .eslintrc.js
+.vscode/settings.json

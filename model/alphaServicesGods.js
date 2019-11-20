@@ -8,6 +8,10 @@ const alphaServiceSchema = new Schema({
         type: String,
         required: true,
     },
+    tenant_id: {
+        type: String,
+        required: true,
+    },
     username: {
         type: String,
         required: true,
@@ -16,11 +20,15 @@ const alphaServiceSchema = new Schema({
         type: String,
         required: true,
     },
-    service_name: {
+    service_name: [{
         type: String,
         required: true,
-    },
+    }],
     service_status: {
+        type: Boolean,
+        required: true,
+    },
+    Roles: {
         type: Boolean,
         required: true,
     },

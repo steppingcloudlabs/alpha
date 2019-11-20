@@ -6,6 +6,7 @@ const companydeletorController = require('../controller/controller.deleteTenant'
 const attachServiceCollectionController = require('../controller/controller.attachService')();
 const detachServiceCollectionController = require('../controller/controller.detachService')();
 const serviceCollectionController = require('../controller/controller.serviceCollections')();
+const roleController = require('../controller/controller.roles')();
 
 module.exports = ({ logger, db }) => {
     /**
@@ -62,5 +63,12 @@ module.exports = ({ logger, db }) => {
         .route('/modifyService')
         .post((req, res, next) => serviceCollectionController
             .modifyService(req, res, next, { logger, db }));
+    /**
+     * Roles APIs.
+     */
+    router
+        .route('/addRole')
+        .post((req, res, next) => roleController
+            .addRole(req, res, next, { logger, db }));
     return router;
 };
