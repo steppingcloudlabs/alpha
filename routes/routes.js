@@ -70,5 +70,6 @@ module.exports = ({ logger, db }) => {
         .route('/addRole')
         .post((req, res, next) => roleController
             .addRole(req, res, next, { logger, db }));
+    router
     return router;
 };
