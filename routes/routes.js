@@ -75,5 +75,6 @@ module.exports = ({ logger, db }) => {
         .route('/service')
         .post((req, res, next) => serviceController.addservice(req, res, next, { logger, db }))
         .put((req, res, next) => serviceController.registertenant(req, res, next, { logger, db }))
+        .get((req, res, next) => serviceController.getservice(req, res, next, { logger, db }))
     return router;
 };

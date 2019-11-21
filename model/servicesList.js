@@ -9,10 +9,7 @@ const serviceSchema = new Schema({
     },
     tenant_id: {
         type: Schema.Types.ObjectId,
-        ref: "master"
-    },
-    company_name: {
-        type: String
+        ref: 'master'
     }
 });
 

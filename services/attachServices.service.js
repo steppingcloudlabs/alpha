@@ -1,6 +1,10 @@
 const mongodb = require('mongodb');
 const serviceAttacherModel = require('../model/alphaServicesGods');
 const credsUtils = require('../utils/assignRole.db.Collection')();
+const serviceSchema = require('../model/servicesList')
+const masterSchema = require('../model/alphaMaterSchema')
+const roleSchema = require('../model/role')
+
 module.exports = () => {
     /**
      * @param {JSON} payload
@@ -17,10 +21,12 @@ module.exports = () => {
                 db_port,
                 db_name,
                 service_name,
-                company_id,
+                company_oid,
                 collection_name,
-                role_type
+                user_role,
+                user_type
             } = payload;
+            console.log(payload)
             const client = new mongodb.MongoClient(`mongodb://${db_host}:${db_port}`, {
                 useUnifiedTopology: true
             });
@@ -38,7 +44,7 @@ module.exports = () => {
             /**
              * creating a username and password for the service.
              */
-            const createUserResponse = await credsUtils.assignRoleOnDatabaseCollection(db_name, db_host, db_port, collection_name, role_type, logger)
+            const createUserResponse = await credsUtils.assignRoleOnDatabaseCollection(db_name, db_host, db_port, collection_name, user_type, logger)
 
             /**
              * inserting new entry to the serives collection of the alpha's database with newly created user
@@ -46,9 +52,28 @@ module.exports = () => {
             const username = createUserResponse[0]
             const password = createUserResponse[1]
             const service_status = true
-            const userResponse = new serviceAttacherModel({ company_id, username, password, service_name, service_status })
-            await userResponse.save()
-            resolve(`Successfully attached service ${payload.service_name} for company_id: ${payload.company_id}`);
+                // get service docuement
+            const service = await serviceSchema.findById(service_name)
+                // get tenant object ID
+            const company_id = await masterSchema.findById(company_oid)
+                //  get roles object ID
+            const roles = await roleSchema.findById(user_role)
+                //  save new service god with details
+            const newServiceGod = new serviceAttacherModel({ company_id, company_oid, username, password, service, service_status, user_role })
+                // save tenant to new service god
+            newServiceGod.company_id = company_id
+                // save serivce to new service god
+            newServiceGod.service_name = service
+                // attach role for new god
+            newServiceGod.user_role = roles
+            await newServiceGod.save()
+                // save new tenant to service collection
+            service.tenant_id = company_id
+            await service.save()
+                // save new service to master collection
+            company_id.service_name = service
+            await company_id.save()
+            resolve(`Successfully attached service ${payload.service_name} for company_id: ${payload.company_id} with response ${newServiceGod}`);
             logger.info(`Successfully attached service ${payload.service_name}`);
         } catch (error) {
             reject(error);

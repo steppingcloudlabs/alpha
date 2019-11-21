@@ -8,7 +8,7 @@ const alphaServiceSchema = new Schema({
         type: String,
         required: true,
     },
-    tenant_id: {
+    company_oid: {
         type: String,
         required: true,
     },
@@ -20,7 +20,7 @@ const alphaServiceSchema = new Schema({
         type: String,
         required: true,
     },
-    service_name: [{
+    service: [{
         type: String,
         required: true,
     }],
@@ -28,10 +28,10 @@ const alphaServiceSchema = new Schema({
         type: Boolean,
         required: true,
     },
-    Roles: {
-        type: Boolean,
+    user_role: {
+        type: Schema.Types.ObjectId,
         required: true,
-    },
+    }
 
 });
 
