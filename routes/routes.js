@@ -7,6 +7,7 @@ const attachServiceCollectionController = require('../controller/controller.atta
 const detachServiceCollectionController = require('../controller/controller.detachService')();
 const serviceCollectionController = require('../controller/controller.serviceCollections')();
 const roleController = require('../controller/controller.roles')();
+const serviceController = require('../controller/controller.serviceController')()
 
 module.exports = ({ logger, db }) => {
     /**
@@ -71,5 +72,8 @@ module.exports = ({ logger, db }) => {
         .post((req, res, next) => roleController
             .addRole(req, res, next, { logger, db }));
     router
+        .route('/service')
+        .post((req, res, next) => serviceController.addservice(req, res, next, { logger, db }))
+        .put((req, res, next) => serviceController.registertenant(req, res, next, { logger, db }))
     return router;
 };

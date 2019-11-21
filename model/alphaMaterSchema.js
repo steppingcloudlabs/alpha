@@ -38,6 +38,9 @@ const alphaMasterSchema = new Schema({
     master_password: {
         type: String,
     },
+    service_name: [{
+        type: Schema.Types.ObjectId
+    }]
 });
 
 const alphaMaster = mongoose.model('master', alphaMasterSchema);

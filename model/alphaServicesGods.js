@@ -35,5 +35,5 @@ const alphaServiceSchema = new Schema({
 
 });
 
-const alphaMaster = mongoose.model('services', alphaServiceSchema);
+const alphaMaster = mongoose.model('servicegod', alphaServiceSchema);
 module.exports = alphaMaster;
