@@ -8,6 +8,7 @@ const detachServiceCollectionController = require('../controller/controller.deta
 const serviceCollectionController = require('../controller/controller.serviceCollections')();
 const roleController = require('../controller/controller.roles')();
 const serviceController = require('../controller/controller.serviceController')()
+const getController = require('../controller/controller.getEverything')()
 
 module.exports = ({ logger, db }) => {
     /**
@@ -76,5 +77,19 @@ module.exports = ({ logger, db }) => {
         .post((req, res, next) => serviceController.addservice(req, res, next, { logger, db }))
         .put((req, res, next) => serviceController.registertenant(req, res, next, { logger, db }))
         .get((req, res, next) => serviceController.getservice(req, res, next, { logger, db }))
+    /**
+     * getRole APIs
+     */
+    router
+        .route('/getrole')
+        .get((req, res, next) => getController.getrole(req, res, next, { logger, db }));
+    router
+        .route('/getservice')
+        .get((req, res, next) => getController.getservice(req, res, next, { logger, db }));
+    router
+        .route('/gettenantdb')
+        .get((req, res, next) => getController.getrole(req, res, next, { logger, db }));
+
+
     return router;
 };

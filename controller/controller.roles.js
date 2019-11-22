@@ -1,14 +1,14 @@
 const roleService = require('../services/role.service')();
 
 module.exports = () => {
-    const addRole = async(req, res, next, { logger, db }) => {
+    const addRole = async (req, res, next, { logger, db }) => {
         try {
             const payload = req.body
-            const response = roleService.addRole(payload, logger)
-            if (response) {
+            const response = await roleService.addRole(payload, logger)
+            if (response == 'success') {
                 res.status(200).send({
                     status: '200 OK',
-                    result: response
+                    result: "Success Assigned the roles"
                 })
             } else {
                 res.status(200).send({
