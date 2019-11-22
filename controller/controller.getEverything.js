@@ -4,7 +4,7 @@ module.exports = () => {
     const getrole = async (req, res, next, { logger, db }) => {
         try {
             const payload = req.query
-            const response = await getservice.getroleservice(payload, logger)
+            const response = await getservice.gettenantdb(payload, logger)
             if (response) {
                 res.status(200).send({
                     status: '200',
@@ -24,31 +24,31 @@ module.exports = () => {
             })
         }
     }
-    // const getserviceservice = async (req, res, next, { logger, db }) => {
-    //     try {
-    //         const payload = req.body
-    //         const response = await getservice.getserviceservice(payload, logger)
-    //         if (response) {
-    //             res.status(200).send({
-    //                 status: '200',
-    //                 result: response
-    //             })
-    //         }
-    //         else {
-    //             res.status(200).send({
-    //                 status: '400',
-    //                 result: " error while getting service"
-    //             })
-    //         }
-    //     } catch (error) {
-    //         res.status(200).send({
-    //             status: '400',
-    //             result: error
-    //         })
-    //     }
-    // }
+    const gettenant = async (req, res, next, { logger, db }) => {
+        try {
+            const payload = req.query
+            const response = await getservice.gettenantdb(payload, logger)
+            if (response) {
+                res.status(200).send({
+                    status: '200',
+                    result: response
+                })
+            }
+            else {
+                res.status(200).send({
+                    status: '400',
+                    result: " error while getting service"
+                })
+            }
+        } catch (error) {
+            res.status(200).send({
+                status: '400',
+                result: error
+            })
+        }
+    }
     return {
         getrole,
-        //getserviceservice
+        gettenant
     }
 }

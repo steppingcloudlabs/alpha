@@ -84,11 +84,8 @@ module.exports = ({ logger, db }) => {
         .route('/getrole')
         .get((req, res, next) => getController.getrole(req, res, next, { logger, db }));
     router
-        .route('/getservice')
-        .get((req, res, next) => getController.getservice(req, res, next, { logger, db }));
-    router
-        .route('/gettenantdb')
-        .get((req, res, next) => getController.getrole(req, res, next, { logger, db }));
+        .route('/gettenant')
+        .get((req, res, next) => getController.gettenant(req, res, next, { logger, db }));
 
 
     return router;

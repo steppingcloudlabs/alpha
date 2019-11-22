@@ -44,7 +44,7 @@ module.exports = () => {
         }
         catch (error) {
             reject(error)
-            logger.error("error while adding service")
+            logger.error("error while adding tenantdb")
         }
     })
     return {

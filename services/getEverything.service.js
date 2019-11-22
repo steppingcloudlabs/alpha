@@ -1,4 +1,5 @@
 const roleschema = require('../model/role')
+const masterschema = require('../model/alphaMaterSchema')
 module.exports = () => {
     const getroleservice = (payload, logger) => new Promise(async (resolve, reject) => {
         try {
@@ -7,27 +8,22 @@ module.exports = () => {
             resolve(response)
 
         } catch (error) {
-            res.status(200).send({
-                status: 200,
-                result: error
-            })
+            reject(error)
         }
     })
-    // const getservice = (payload, logger) => new Promise(async (resolve, reject) => {
-    //     try {
-    //         const { role } = payload
-    //         const response = await roleschema.findOne({ role })
-    //         resolve(response)
+    const gettenantdb = (payload, logger) => new Promise(async (resolve, reject) => {
+        try {
+            const { company_name } = payload
+            const response = await masterschema.findOne({ company_name }).populate('service_name')
+            resolve(response)
 
-    //     } catch (error) {
-    //         res.status(200).send({
-    //             status: 200,
-    //             result: error
-    //         })
-    //     }
-    // })
+        } catch (error) {
+            reject(error)
+
+        }
+    })
     return {
         getroleservice,
-        // getservice
+        gettenantdb
     }
 }
