@@ -4,7 +4,7 @@ module.exports = () => {
     const getrole = async (req, res, next, { logger, db }) => {
         try {
             const payload = req.query
-            const response = await getservice.gettenantdb(payload, logger)
+            const response = await getservice.getroleservice(payload, logger)
             if (response) {
                 res.status(200).send({
                     status: '200',

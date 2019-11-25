@@ -39,7 +39,8 @@ const alphaMasterSchema = new Schema({
         type: String,
     },
     service_name: [{
-        type: Schema.Types.ObjectId
+        type: Schema.Types.ObjectId,
+        ref: 'services'
     }]
 });
 

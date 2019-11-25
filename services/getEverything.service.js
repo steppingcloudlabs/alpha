@@ -5,6 +5,7 @@ module.exports = () => {
         try {
             const { role } = payload
             const response = await roleschema.findOne({ role })
+            console.log(response)
             resolve(response)
 
         } catch (error) {
