@@ -62,3 +62,4 @@ typings/
 .eslintrc.json
 .eslintrc.js
 .vscode/settings.json
+log/*
