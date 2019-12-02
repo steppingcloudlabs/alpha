@@ -31,6 +31,7 @@ const alphaServiceSchema = new Schema({
     user_role: {
         type: Schema.Types.ObjectId,
         required: true,
+        ref: 'roles'
     }
 
 });
