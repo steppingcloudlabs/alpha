@@ -29,7 +29,7 @@ module.exports = () => {
             );
           }
           const newDB = client.db(dbname);
-          newDB.createCollection("masterdata");
+          newDB.createCollection("login");
           // Use the admin database for the operation
           const db = client.db(dbname);
           // Add the new user to the admin database
