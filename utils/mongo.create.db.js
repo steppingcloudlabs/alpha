@@ -20,8 +20,11 @@ module.exports = () => {
           length: 12,
           numbers: true
         });
-        const uri = `mongodb+srv://'${config.mongo_user}:'${config.mongo_password}'@dev-i9qmj.mongodb.net/steppingcloud?retryWrites=true&w=majority`;
-        const client = new MongoClient(uri, { useNewUrlParser: true });
+        const uri = `mongodb+srv://'${config.mongo_user}:'${config.mongo_password}'@dev-i9qmj.mongodb.net/test?retryWrites=true&w=majority`;
+        const client = new MongoClient(uri, {
+          useNewUrlParser: true,
+          useUnifiedTopology: true
+        });
         const client_connect = client.connect(err => {
           if (!err) {
             logger.info(
@@ -51,8 +54,9 @@ module.exports = () => {
               }
             }
           );
+          resolve([userName, userPassword, dbname]);
         });
-        resolve([userName, userPassword, dbname]);
+
         logger.info(
           `Successfully created the User : ${userName}, and Password : ${userPassword} for database access:${dbname}`
         );
