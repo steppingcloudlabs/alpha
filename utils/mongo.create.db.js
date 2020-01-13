@@ -36,8 +36,10 @@ module.exports = () => {
                     newDB.createCollection("login");
                     // Use the admin database for the operation
                     const db = client.db(dbname);
-                    // Add the new user to the admin database
-                    db.addUser(
+                    // below line is very important, without this line you'll see this error >>> MongoError: CMD_NOT_ALLOWED: createUser
+                    const db_admin = db.admin()
+                        // Add the new user to the admin database
+                    db_admin.addUser(
                         userName,
                         userPassword, {
                             roles: [{
