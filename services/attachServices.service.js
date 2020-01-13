@@ -1,9 +1,12 @@
-const mongodb = require('mongodb');
+const MongoClient = require('mongodb').MongoClient;
 const serviceAttacherModel = require('../model/alphaServicesGods');
 const credsUtils = require('../utils/assignRole.db.Collection')();
 const serviceSchema = require('../model/servicesList')
 const masterSchema = require('../model/alphaMaterSchema')
 const roleSchema = require('../model/role')
+const config = require("../config/index");
+const { atlasClient } = require('../mongo.js')
+const { env } = config;
 
 module.exports = () => {
     /**
@@ -26,25 +29,19 @@ module.exports = () => {
                 user_role,
                 user_type
             } = payload;
-            console.log(payload)
-            const client = new mongodb.MongoClient(`mongodb://${db_host}:${db_port}`, {
-                useUnifiedTopology: true
-            });
-            client.connect((err) => {
-                if (!err) {
-                    logger.info(`Successfully created connection on Mongodb for DatabaseName: ${db_name}`);
-                }
-            });
-            const db = client.db(db_name);
+
+            const db = atlasClient.db(db_name);
             const collect_names = collection_name
             const size = collect_names.length
             for (let i = 0; i < size; i++) {
                 db.createCollection(collect_names[i]);
             }
+
+
             /**
              * creating a username and password for the service.
              */
-            const createUserResponse = await credsUtils.assignRoleOnDatabaseCollection(db_name, db_host, db_port, collection_name, user_type, logger)
+            const createUserResponse = await credsUtils.assignRoleOnDatabaseCollection(db_name, atlasClient, collection_name, user_type, logger)
 
             /**
              * inserting new entry to the serives collection of the alpha's database with newly created user
@@ -73,7 +70,7 @@ module.exports = () => {
                 // save new service to master collection
             company_id.service_name = service
             await company_id.save()
-            resolve(`Successfully attached service ${payload.service_name} for company_id: ${payload.company_id} with response ${newServiceGod}`);
+            resolve(`Successfully attached service `);
             logger.info(`Successfully attached service ${payload.service_name}`);
         } catch (error) {
             reject(error);
