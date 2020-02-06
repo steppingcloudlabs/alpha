@@ -23,7 +23,7 @@ module.exports = () => {
                 db_host,
                 db_port,
                 db_name,
-                service_name,
+                servicename,
                 company_oid,
                 collection_name,
                 user_role,
@@ -50,7 +50,8 @@ module.exports = () => {
             const password = createUserResponse[1]
             const service_status = true
                 // get service docuement
-            const service = await serviceSchema.findById(service_name)
+            const service = await serviceSchema.findById(servicename)
+                // console.log(service)
                 // get tenant object ID
             const company_id = await masterSchema.findById(company_oid)
                 //  get roles object ID
@@ -60,7 +61,7 @@ module.exports = () => {
                 // save tenant to new service god
             newServiceGod.company_id = company_id
                 // save serivce to new service god
-            newServiceGod.service_name = service
+            newServiceGod.service = service.service_name
                 // attach role for new god
             newServiceGod.user_role = roles
             await newServiceGod.save()

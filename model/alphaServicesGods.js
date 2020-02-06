@@ -20,10 +20,10 @@ const alphaServiceSchema = new Schema({
         type: String,
         required: true,
     },
-    service: [{
+    service: {
         type: String,
         required: true,
-    }],
+    },
     service_status: {
         type: Boolean,
         required: true,

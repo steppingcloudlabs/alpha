@@ -22,13 +22,13 @@ module.exports = () => {
                     db_name: { type: 'string' },
                     db_host: { type: 'string' },
                     db_port: { type: 'string' },
-                    service_name: [{ type: 'string' }],
+                    servicename: [{ type: 'string' }],
                     company_oid: { type: 'string', },
                     collection_name: [{ type: 'string' }],
                     user_role: { type: 'string' },
                     user_type: { type: 'string' }
                 },
-                required: ['service_name', 'company_oid', 'collection_name', 'user_role', 'db_name', 'db_host', 'db_port', 'user_type'],
+                required: ['servicename', 'company_oid', 'collection_name', 'user_role', 'db_name', 'db_host', 'db_port', 'user_type'],
             };
             validatator.addSchema(attachTenantServiceSchema, '/attachTenantServiceSchema');
             const validatorResponse = (validatator.validate(payload, '/attachTenantServiceSchema')).valid;
@@ -53,7 +53,7 @@ module.exports = () => {
                         db_name: { type: 'string', required: true },
                         db_host: { type: 'string', required: true },
                         db_port: { type: 'string', required: true },
-                        service_name: { type: 'string', required: true },
+                        servicename: { type: 'string', required: true },
                         company_oid: { type: 'string', required: true },
                         collection_name: [{ type: 'string', required: true }],
                         user_role: {
