@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/steppingcloudlabs/alpha#readme",
   "dependencies": {
-    "aws-sdk": "^2.553.0",
+    "aws-sdk": "^2.814.0",
     "body-parser": "^1.19.0",
     "bunyan": "^1.8.12",
     "chai": "^4.2.0",
